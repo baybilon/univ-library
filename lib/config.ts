@@ -21,6 +21,7 @@ const config = {
       privateKey: process.env.EMAILJS_PRIVATE_KEY!,
       templateId: process.env.EMAILJS_TEMPLATE_ID!,
     },
+    runtime: "nodejs",
   },
 };
 export default config;

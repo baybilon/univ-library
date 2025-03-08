@@ -1,16 +1,15 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { eq } from "drizzle-orm";
 import { db } from "@/database/drizzle";
 import { users } from "@/database/schema";
 import { hash } from "bcryptjs";
-
-import { eq } from "drizzle-orm";
+import { signIn } from "@/auth";
 import { headers } from "next/headers";
-import ratelimit from "../ratelimit";
+import ratelimit from "@/lib/ratelimit";
 import { redirect } from "next/navigation";
-import { workflowClient } from "../workflow";
-import config from "../config";
+import { workflowClient } from "@/lib/workflow";
+import config from "@/lib/config";
 
 export const signInWithCredentials = async (
   params: Pick<AuthCredentials, "email" | "password">
@@ -32,6 +31,7 @@ export const signInWithCredentials = async (
     if (result?.error) {
       return { success: false, error: result.error };
     }
+
     return { success: true };
   } catch (error) {
     console.log(error, "Signin error");
@@ -40,7 +40,7 @@ export const signInWithCredentials = async (
 };
 
 export const signUp = async (params: AuthCredentials) => {
-  const { fullName, email, password, universityId, universityCard } = params;
+  const { fullName, email, universityId, password, universityCard } = params;
 
   const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
   const { success } = await ratelimit.limit(ip);
@@ -54,7 +54,7 @@ export const signUp = async (params: AuthCredentials) => {
     .limit(1);
 
   if (existingUser.length > 0) {
-    return { success: false, error: "User already exist" };
+    return { success: false, error: "User already exists" };
   }
 
   const hashedPassword = await hash(password, 10);
@@ -63,13 +63,13 @@ export const signUp = async (params: AuthCredentials) => {
     await db.insert(users).values({
       fullName,
       email,
-      password: hashedPassword,
       universityId,
+      password: hashedPassword,
       universityCard,
     });
 
     await workflowClient.trigger({
-      url: `${config.env.prodApiEndpoint}/api/workflow/onboarding`,
+      url: `${config.env.prodApiEndpoint}/api/workflows/onboarding`,
       body: {
         email,
         fullName,
@@ -81,6 +81,6 @@ export const signUp = async (params: AuthCredentials) => {
     return { success: true };
   } catch (error) {
     console.log(error, "Signup error");
-    return { success: false, error: "Signup Error" };
+    return { success: false, error: "Signup error" };
   }
 };

@@ -45,10 +45,10 @@ export const { POST } = serve<InitialData>(async (context) => {
   const { email, fullName } = context.requestPayload;
 
   await context.run("new-signup", async () => {
-    // await sendEmail({
-    //   subject: "Welcome to the platform",
-    //   message: `Welcome ${fullName}!`,
-    // });
+    await sendEmail({
+      email,
+      message: `Welcome ${fullName}!`,
+    });
 
     emailjs.send(config.env.emailjs.serviceId, config.env.emailjs.templateId, {
       from_name: "Admin mager",

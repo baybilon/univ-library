@@ -11,12 +11,19 @@ const qtashClient = new QStashClient({
   token: config.env.upstash.qtashToken,
 });
 
-export const sendEmail = async ({ email }: { email: string }) => {
+export const sendEmail = async ({
+  email,
+  message,
+}: {
+  email: string;
+  message: string;
+}) => {
   await qtashClient.publishJSON({
     url: config.env.upstash.qtashUrl,
     body: {
       from: "Iqbal Pratama <iqbal.pyp@gmail.com>",
       to: [email],
+      html: message,
     },
   });
 };

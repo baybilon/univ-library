@@ -23,8 +23,8 @@ export const sendEmail = async ({
     body: {
       from: "Iqbal Pratama <iqbal.pyp@gmail.com>",
       to: [email],
-     headers: { "my-header": "my-value" },
-      html: message,
+      headers: { "my-header": "my-value" },
+      message: message,
     },
   });
 };

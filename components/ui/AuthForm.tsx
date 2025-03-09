@@ -60,7 +60,7 @@ const AuthForm = <T extends FieldValues>({
           ? "You have successfully signed in!"
           : "You have successfully signed up!",
       });
-      router.refresh();
+      // router.refresh();
       router.push("/");
     } else {
       toast.error(`Error ${isSignIn}`, {

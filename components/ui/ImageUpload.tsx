@@ -4,8 +4,7 @@ import React, { useRef, useState } from "react";
 import { IKImage, ImageKitProvider, IKUpload } from "imagekitio-next";
 import config from "@/lib/config";
 import Image from "next/image";
-import { FilePath } from "tailwindcss/types/config";
-// import { useToast } from "@/hooks/use-toast";
+
 import { toast } from "sonner";
 
 const {
@@ -16,7 +15,9 @@ const {
 
 const authenticator = async () => {
   try {
-    const response = await fetch(`${config.env.apiEndpoint}/api/auth/imagekit`);
+    const response = await fetch(
+      `${config.env.prodApiEndpoint}/api/auth/imagekit`
+    );
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`Request failed with status ${response.status}`);

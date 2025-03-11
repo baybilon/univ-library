@@ -40,6 +40,7 @@ export const sendEmail = async ({
       from_name: "Admin mager",
       to_name: fullName,
       to_email: email,
+      message: message,
     },
   };
 
@@ -57,7 +58,7 @@ export const sendEmail = async ({
 
       url: "https://api.emailjs.com/api/v1.0/email/send",
       method: "POST",
-      body: dataEmailJs,
+      body: JSON.stringify(dataEmailJs),
       headers: { contentType: "application/json" },
     });
     console.log("Email sent successfully:", dataEmailJs);

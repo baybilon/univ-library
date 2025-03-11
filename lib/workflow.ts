@@ -18,13 +18,13 @@ export const sendEmail = async ({
   email: string;
   message: string;
 }) => {
-  await qtashClient.publishJSON({
+  await workflowClient.trigger({
     url: config.env.upstash.qtashUrl,
     body: {
       from: "Iqbal Pratama <iqbal.pyp@gmail.com>",
       to: [email],
-      headers: { "my-header": "my-value" },
       message: message,
     },
+    headers: { "content-type": "application/json" },
   });
 };

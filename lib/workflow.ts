@@ -20,6 +20,7 @@ export const sendEmail = async ({
 }) => {
   await qtashClient.publishJSON({
     url: config.env.upstash.qtashUrl,
+    method: "POST",
     body: {
       from: "Iqbal Pratama <iqbal.pyp@gmail.com>",
       to: [email],

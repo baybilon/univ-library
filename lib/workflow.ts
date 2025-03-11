@@ -32,9 +32,9 @@ export const sendEmail = async ({
   fullName: string;
 }) => {
   const dataEmailJs = {
-    serviceId: config.env.emailjs.serviceId,
-    templateId: config.env.emailjs.templateId,
-    userId: config.env.emailjs.publicKey,
+    service_id: config.env.emailjs.serviceId,
+    template_id: config.env.emailjs.templateId,
+    user_id: config.env.emailjs.publicKey,
     template_params: {
       from_name: "Admin mager",
       to_name: fullName,

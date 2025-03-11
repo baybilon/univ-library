@@ -42,20 +42,25 @@ export const sendEmail = async ({
     },
   };
 
-  await qtashClient.publishJSON({
-    // url: config.env.upstash.qtashUrl,
-    // url: "https://api.emailjs.com/api/v1.0/email/send",
-    // method: "POST",
-    // body: {
-    //   from: "Iqbal Pratama <iqbal.pyp@gmail.com>",
-    //   to: [email],
-    //   message: message,
-    // },
-    // headers: { "content-type": "application/json" },
+  try {
+    await qtashClient.publishJSON({
+      // url: config.env.upstash.qtashUrl,
+      // url: "https://api.emailjs.com/api/v1.0/email/send",
+      // method: "POST",
+      // body: {
+      //   from: "Iqbal Pratama <iqbal.pyp@gmail.com>",
+      //   to: [email],
+      //   message: message,
+      // },
+      // headers: { "content-type": "application/json" },
 
-    url: "https://api.emailjs.com/api/v1.0/email/send",
-    type: "POST",
-    data: JSON.stringify(dataEmailJs),
-    contentType: "application/json",
-  });
+      url: "https://api.emailjs.com/api/v1.0/email/send",
+      type: "POST",
+      data: JSON.stringify(dataEmailJs),
+      contentType: "application/json",
+    });
+    console.log("Email sent successfully:", dataEmailJs);
+  } catch (error) {
+    console.log(error, "Error sending email");
+  }
 };

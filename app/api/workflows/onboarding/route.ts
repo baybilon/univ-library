@@ -48,14 +48,19 @@ export const { POST } = serve<InitialData>(async (context) => {
     await sendEmail({
       email,
       message: `Welcome ${fullName}!`,
+      fullName,
     });
 
-    emailjs.send(config.env.emailjs.serviceId, config.env.emailjs.templateId, {
-      from_name: "Admin mager",
-      to_name: fullName,
-      to_email: email,
-      message: "Welcome bangsat",
-    });
+    await emailjs.send(
+      config.env.emailjs.serviceId,
+      config.env.emailjs.templateId,
+      {
+        from_name: "Admin mager",
+        to_name: fullName,
+        to_email: email,
+        message: "Welcome bangsat",
+      }
+    );
   });
 
   await context.sleep("wait-for-3-days", 60 * 60 * 24 * 3);

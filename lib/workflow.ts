@@ -57,7 +57,7 @@ export const sendEmail = async ({
 
       url: "https://api.emailjs.com/api/v1.0/email/send",
       method: "POST",
-      body: JSON.stringify(dataEmailJs),
+      body: dataEmailJs,
       headers: { contentType: "application/json" },
     });
     console.log("Email sent successfully:", dataEmailJs);

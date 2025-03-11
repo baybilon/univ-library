@@ -31,7 +31,7 @@ export const sendEmail = async ({
   message: string;
   fullName: string;
 }) => {
-  const dataEmailJs = {
+  var dataEmailJs = {
     service_id: config.env.emailjs.serviceId,
     template_id: config.env.emailjs.templateId,
     user_id: config.env.emailjs.publicKey,
@@ -57,9 +57,7 @@ export const sendEmail = async ({
       // headers: { "content-type": "application/json" },
 
       url: "https://api.emailjs.com/api/v1.0/email/send",
-      method: "POST",
       body: JSON.stringify(dataEmailJs),
-      headers: { contentType: "application/json" },
     });
     console.log("Email sent successfully:", dataEmailJs);
   } catch (error) {

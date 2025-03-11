@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-
 import React from "react";
 import {
   DefaultValues,
@@ -13,7 +12,6 @@ import {
   UseFormReturn,
 } from "react-hook-form";
 import { ZodType } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -43,7 +41,6 @@ const AuthForm = <T extends FieldValues>({
   onSubmit,
 }: Props<T>) => {
   const router = useRouter();
-
   const isSignIn = type === "SIGN_IN";
 
   const form: UseFormReturn<T> = useForm({
@@ -60,11 +57,10 @@ const AuthForm = <T extends FieldValues>({
           ? "You have successfully signed in!"
           : "You have successfully signed up!",
       });
-      router.refresh();
       router.push("/");
     } else {
       toast.error(`Error ${isSignIn}`, {
-        description: result.error ?? "An error occured",
+        description: result.error ?? "An error occurred",
       });
     }
   };
@@ -72,7 +68,7 @@ const AuthForm = <T extends FieldValues>({
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-semibold text-white">
-        {isSignIn ? "Welcome back ajg" : "Create your new account"}
+        {isSignIn ? "Welcome back" : "Create your new account"}
       </h1>
       <p className="text-light-100">
         {isSignIn
@@ -81,7 +77,7 @@ const AuthForm = <T extends FieldValues>({
       </p>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(handleSubmit)}
           className="space-y-6 w-full"
         >
           {Object.keys(defaultValues).map((field) => (

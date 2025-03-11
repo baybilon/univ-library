@@ -35,6 +35,7 @@ export const sendEmail = async ({
     service_id: config.env.emailjs.serviceId,
     template_id: config.env.emailjs.templateId,
     user_id: config.env.emailjs.publicKey,
+    accessToken: config.env.emailjs.privateKey,
     template_params: {
       from_name: "Admin mager",
       to_name: fullName,
@@ -57,7 +58,7 @@ export const sendEmail = async ({
       url: "https://api.emailjs.com/api/v1.0/email/send",
       method: "POST",
       body: JSON.stringify(dataEmailJs),
-      contentType: "application/json",
+      headers: { contentType: "application/json" },
     });
     console.log("Email sent successfully:", dataEmailJs);
   } catch (error) {

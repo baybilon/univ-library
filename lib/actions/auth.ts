@@ -74,6 +74,9 @@ export const signUp = async (params: AuthCredentials) => {
         email,
         fullName,
       },
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     await signInWithCredentials({ email, password });

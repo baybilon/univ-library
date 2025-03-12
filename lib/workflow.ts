@@ -3,8 +3,8 @@ import { Client as QStashClient } from "@upstash/qstash";
 import config from "./config";
 
 export const workflowClient = new WorkflowClient({
-  baseUrl: config.env.upstash.qtashUrl,
   token: config.env.upstash.qtashToken,
+  baseUrl: config.env.upstash.qtashUrl,
 });
 
 const qtashClient = new QStashClient({

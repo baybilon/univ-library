@@ -47,20 +47,9 @@ export const { POST } = serve<InitialData>(async (context) => {
   await context.run("new-signup", async () => {
     await sendEmail({
       email,
-      message: `Welcome ${fullName}!`,
+      message: `Welcome to the bookrent, ${fullName}!`,
       fullName,
     });
-
-    // await emailjs.send(
-    //   config.env.emailjs.serviceId,
-    //   config.env.emailjs.templateId,
-    //   {
-    //     from_name: "Admin mager",
-    //     to_name: fullName,
-    //     to_email: email,
-    //     message: "Welcome bangsat",
-    //   }
-    // );
   });
 
   await context.sleep("wait-for-3-days", 60 * 60 * 24 * 3);
@@ -72,30 +61,19 @@ export const { POST } = serve<InitialData>(async (context) => {
 
     if (state === "non-active") {
       await context.run("send-email-non-active", async () => {
-        emailjs.send(
-          config.env.emailjs.serviceId,
-          config.env.emailjs.templateId,
-          {
-            from_name: "Admin mager",
-            to_name: fullName,
-            to_email: email,
-            message: "Kmn woy?",
-          }
-        );
+        await sendEmail({
+          email,
+          message: `Kmn kamu ih ${fullName}!`,
+          fullName,
+        });
       });
     } else if (state === "active") {
       await context.run("send-email-active", async () => {
-        // await sendEmail("Send newsletter to active users", email);
-        emailjs.send(
-          config.env.emailjs.serviceId,
-          config.env.emailjs.templateId,
-          {
-            from_name: "Admin mager",
-            to_name: fullName,
-            to_email: email,
-            message: "Welcome back bangsat",
-          }
-        );
+        await sendEmail({
+          email,
+          message: `Welcome back ges${fullName}!`,
+          fullName,
+        });
       });
     }
 

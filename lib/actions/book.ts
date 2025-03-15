@@ -13,6 +13,7 @@ export const borrowBook = async (params: BorrowBookParams) => {
       .from(books)
       .where(eq(books.id, bookId))
       .limit(1);
+
     if (!book.length || book[0].availableCopies <= 0)
       return {
         success: false,

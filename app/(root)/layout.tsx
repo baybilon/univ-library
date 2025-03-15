@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import Header from "@/components/ui/Header";
+import Header from "@/components/Header";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
